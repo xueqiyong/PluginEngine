@@ -5,8 +5,10 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
+
+using DevComponents.DotNetBar;
+
 
 using ESRI.ArcGIS.Carto;
 using ESRI.ArcGIS.Controls;
@@ -17,10 +19,11 @@ using ESRI.ArcGIS.Geodatabase;
 using ESRI.ArcGIS.Geometry;
 
 using MyPluginEngine;
+using MyMainGIS.Library;
 
 namespace MyMainGIS
 {
-    public partial class MainGIS : Form
+    public partial class MainGIS : DevComponents.DotNetBar.Office2007RibbonForm
     {
         #region 公共变量
         //地图控件对象
@@ -82,7 +85,7 @@ namespace MyMainGIS
             //让MapControl和PageLatoutControl保存同步
             m_controlsSynchronizer = new ControlsSynchronizer(_mapControl, _pageLayoutControl);
             m_controlsSynchronizer.BindControls(true);
-            m_controlsSynchronizer.AddFrameWorkControl(axTOCControl.Object);
+            m_controlsSynchronizer.AddFrameWorkControl(axTOCControl1.Object);
 
             //TOCControl的esriTOOControlItemMap被右键点击后弹出的快捷菜单
             _mapMenu = new ToolbarMenuClass();
@@ -102,7 +105,7 @@ namespace MyMainGIS
         private void MainGIS_Load(object sender, EventArgs e)
         {
             //从插件文件夹中获得实现插件接口的对象
-            PluginCollection pluginCol = PluginHandle.GetPluginsFromDll();
+            PluginCollection pluginCol = PluginHandle.GetPluginsFromDll(); 
             //解析这些插件对象,获得不同类型的插件集合
             ParsePluginCollection parsePluhinCol = new ParsePluginCollection();
             parsePluhinCol.GetPluginArray(pluginCol);
@@ -112,12 +115,14 @@ namespace MyMainGIS
             _MenuItemCol = parsePluhinCol.GetMenuDefs;
             _DockableWindowCol = parsePluhinCol.GetDockableWindows;
 
-            //获得Command和Tool在UI层上的Category属性
+            //获得Command和Tool在UI层上的Category属性，只是纯粹的分类符号
+            //可以根据不同类别插件进行UI级解析，可以编写 为uicommon uitool 
             //foreach (string categoryName in parsePluhinCol.GetCommandCategorys)
             //{
+            //    //对ui进行分为不同的类别
             //    //uiCommandManager.Categories.Add(new UICommandCategory(categoryName));
             //}
-            //产生UI对象
+            //产生UI对象 
             CreateUICommandTool(_CommandCol, _ToolCol);
             CreateToolBars(_ToolBarCol);
             CreateMenus(_MenuItemCol);
@@ -126,6 +131,7 @@ namespace MyMainGIS
             _mapControl.CurrentTool = null;
             _pageLayoutControl.CurrentTool = null;
         }
+ 
 
         #region 方法
         //Dictionary<string, CCmdBtn> m_DicPlugins = new Dictionary<string, CCmdBtn>();
@@ -158,13 +164,19 @@ namespace MyMainGIS
             {
                 MyPluginEngine.IToolBarDef nbtoolbar = toolbar.Value;
                 //产生UICommandBar对象
-                ToolStrip UIToolbar = new ToolStrip();
+                //ToolStrip UIToolbar = new ToolStrip();
+                RibbonPanel UIToolPanel = new RibbonPanel();
                 //设置UICommandBar的属性
                 //UIToolbar.CommandManager = this.uiCommandManager;
-                UIToolbar.Name = nbtoolbar.Name;
-                UIToolbar.Text = nbtoolbar.Caption;
-                UIToolbar.Tag = nbtoolbar;
-                UIToolbar.AccessibleName = nbtoolbar.ToString();
+                UIToolPanel.Name = nbtoolbar.Name;
+                //UIToolPanel.Text = nbtoolbar.Caption;
+                UIToolPanel.Tag = nbtoolbar;
+                UIToolPanel.AccessibleName = nbtoolbar.ToString();
+                UIToolPanel.Dock = DockStyle.Fill;
+
+                RibbonBar UIToolBar = new RibbonBar();
+                //UIToolBar.Text = nbtoolbar.Caption;
+
                 //将Command和Tool插入到ToolBar中
                 MyPluginEngine.ItemDef itemDef = new ItemDef();
                 for (int i = 0; i < nbtoolbar.ItemCount; i++)
@@ -174,10 +186,11 @@ namespace MyMainGIS
                     if (nbcmd != null)
                     {
                         //产生一个UICommand对象
-                        ToolStripButton UICommand = new ToolStripButton();
-                        UICommand.DisplayStyle = ToolStripItemDisplayStyle.Image;
+                        //ToolStripButton UICommand = new ToolStripButton();
+                        ButtonItem UICommand = new ButtonItem();
+                        //UICommand.sty = ;
                         //根据ICommand的信息设置UICommand的属性
-                        UICommand.ToolTipText = nbcmd.Tooltip;
+                        //UICommand.ToolTipText = nbcmd.Tooltip;
                         UICommand.Text = nbcmd.Caption;
                         UICommand.Image = nbcmd.Bitmap;
                         UICommand.AccessibleName = nbcmd.ToString();
@@ -193,9 +206,10 @@ namespace MyMainGIS
                         //如果分组,则在该UI对象前加上一个分隔符
                         if (itemDef.Group)
                         {
-                            UIToolbar.Items.Add(new ToolStripSeparator());
+                            UIToolBar = new RibbonBar();
+                            //UIToolBar.Text = nbtoolbar.Caption;
                         }
-                        UIToolbar.Items.Add(UICommand);
+                        UIToolBar.Items.Add(UICommand);
                     }
 
                     //获得一个ITool对象
@@ -203,10 +217,11 @@ namespace MyMainGIS
                     if (nbtool != null)
                     {
                         //产生一个ITool对象
-                        ToolStripButton UITool = new ToolStripButton();
-                        UITool.DisplayStyle = ToolStripItemDisplayStyle.Image;
+                        //ToolStripButton UITool = new ToolStripButton();
+                        ButtonItem UITool = new ButtonItem(); 
+                        //UITool.DisplayStyle = ToolStripItemDisplayStyle.Image;
                         //根据ITool的信息设置UITool的属性
-                        UITool.ToolTipText = nbtool.Tooltip;
+                        //UITool.ToolTipText = nbtool.Tooltip;
                         UITool.Text = nbtool.Caption;
                         UITool.Image = nbtool.Bitmap;
                         UITool.AccessibleName = nbtool.ToString();
@@ -221,18 +236,22 @@ namespace MyMainGIS
                         //将生成的UICommand添加到CommandManager中
                         if (itemDef.Group)
                         {
-                            UIToolbar.Items.Add(new ToolStripSeparator());
+                            //UIToolbar.Items.Add(new ToolStripSeparator());
+                            UIToolBar = new RibbonBar();
+                            //UIToolBar.Text = nbtoolbar.Caption;
+                            //UIToolBar.Items.Add();
                         }
-                        UIToolbar.Items.Add(UITool);
+                        UIToolBar.Items.Add(UITool);
                     }
+                    UIToolPanel.Controls.Add(UIToolBar);
                 }
-                UIToolbar.Dock = DockStyle.Top;
-                this.toolStripContainer1.TopToolStripPanel.Controls.Add(UIToolbar);
+                
+                this.MainTool.Controls.Add(UIToolPanel);
             }
         }
 
         /// <summary>
-        /// 创建UI层的菜单栏
+        /// 创建UI层的菜单栏 使用ribbonControl实现菜单栏的功能
         /// </summary>
         /// <param name="Menus"></param>
         private void CreateMenus(Dictionary<string, MyPluginEngine.IMenuDef> Menus)
@@ -242,13 +261,26 @@ namespace MyMainGIS
             {
                 MyPluginEngine.IMenuDef nbMenu = menu.Value;
                 //新建菜单对象
-                ToolStripMenuItem UIMenu = new ToolStripMenuItem();
+                //ToolStripMenuItem UIMenu = new ToolStripMenuItem();
+                RibbonTabItem UIMenu = new RibbonTabItem();
                 //设置菜单属性
                 UIMenu.Text = nbMenu.Caption;
                 UIMenu.Tag = nbMenu;
                 UIMenu.AccessibleName = nbMenu.ToString();
+
+                //添加ribbonpanel
+                RibbonPanel MenuPanel = new RibbonPanel();
+                MenuPanel.Text = nbMenu.Caption;
+                MenuPanel.Dock = DockStyle.Fill;
+                UIMenu.Panel = MenuPanel;
+
+                // 添加 ribbonbar
+                RibbonBar MenuBar = new RibbonBar();
+                //MenuBar.Text = nbMenu.Caption;//分组标题
+                //MenuBar.Dock = DockStyle.Fill;
+
                 //将Menu添加MainMenu的Commands中
-                MainMenu.Items.Add(UIMenu);
+                //MainMenu.Items.Add(UIMenu);
                 //将Command和Tool插入到menu中
                 //遍历每一个菜单item
                 MyPluginEngine.ItemDef itemDef = new MyPluginEngine.ItemDef();
@@ -261,9 +293,12 @@ namespace MyMainGIS
                     if (nbtool != null)
                     {
                         //产生一个ITool对象
-                        ToolStripMenuItem UITool = new ToolStripMenuItem();
+                        //ToolStripMenuItem UITool = new ToolStripMenuItem();
+                        //
+                        ButtonItem UITool = new ButtonItem();
                         //根据ITool的信息设置UITool的属性
-                        UITool.ToolTipText = nbtool.Tooltip;
+                        //UITool.ToolTipText = nbtool.Tooltip;
+                        UITool.ImagePosition = DevComponents.DotNetBar.eImagePosition.Top;
                         UITool.Text = nbtool.Caption;
                         UITool.Image = nbtool.Bitmap;
                         UITool.AccessibleName = nbtool.ToString();
@@ -276,19 +311,27 @@ namespace MyMainGIS
                         //所有的UICommand对象Click事件均使用this.UITool_Click方法处理
                         UITool.Click += new EventHandler(UITool_Click);
                         //将生成的UICommand添加到CommandManager中
+
+                        MenuBar.Text = nbtool.Category;
                         if (itemDef.Group)
                         {
-                            UIMenu.DropDownItems.Add(new ToolStripSeparator());
+                            MenuBar = new RibbonBar();
+                            MenuBar.Text = nbtool.Category;//分组标题
+                            //UIMenu.DropDownItems.Add(new ToolStripSeparator());
                         }
-                        UIMenu.DropDownItems.Add(UITool);
+                        MenuBar.Items.Add(UITool);
+                        //UIMenu.SubItems.Add(UITool);
                     }
                     MyPluginEngine.ICommand nbcmd = m_DicPlugins[itemDef.ID] as MyPluginEngine.ICommand;
                     if (nbcmd != null)
                     {
                         //产生一个UICommand对象
-                        ToolStripMenuItem UICommand = new ToolStripMenuItem();
+                        //ToolStripMenuItem UICommand = new ToolStripMenuItem();
+                        //
+                        ButtonItem UICommand = new ButtonItem();
+                        UICommand.ImagePosition = DevComponents.DotNetBar.eImagePosition.Top;
                         //根据ICommand的信息设置UICommand的属性
-                        UICommand.ToolTipText = nbcmd.Tooltip;
+                        //UICommand.ToolTipText = nbcmd.Tooltip;
                         UICommand.Text = nbcmd.Caption;
                         UICommand.Image = nbcmd.Bitmap;
                         UICommand.AccessibleName = nbcmd.ToString();
@@ -304,11 +347,18 @@ namespace MyMainGIS
                         //如果分组,则在该UI对象前加上一个分隔符
                         if (itemDef.Group)
                         {
-                            UIMenu.DropDownItems.Add(new ToolStripSeparator());
+                            //UIMenu.DropDownItems.Add(new ToolStripSeparator());
+                            MenuBar = new RibbonBar();
+                            MenuBar.Text = UICommand.Category;
                         }
-                        UIMenu.DropDownItems.Add(UICommand);
+                        //UIMenu.DropDownItems.Add(UICommand);
+                        MenuBar.Items.Add(UICommand);
                     }
+                    MenuPanel.Controls.Add(MenuBar);
                 }
+                
+                this.MainMenu.Controls.Add(MenuPanel);
+                this.MainMenu.Items.Add(UIMenu);
             }
         }
 
@@ -364,18 +414,19 @@ namespace MyMainGIS
         #region 自定义事件
         void UICommand_Click(object sender, EventArgs e)
         {
-            ToolStripButton pTempBtn = sender as ToolStripButton;
-            ToolStripMenuItem pTempMenuItem = sender as ToolStripMenuItem;
-            ToolStripItem pItem = pTempBtn;
-            if (null == pTempBtn)
-            {
-                pItem = pTempMenuItem;
-            }
-            if (null == pItem)
-            {
-                return;
-            }
-            string strKey = pItem.AccessibleName;
+            //ToolStripButton pTempBtn = sender as ToolStripButton;
+            ButtonItem pTemp = sender as ButtonItem;
+            //ToolStripMenuItem pTempMenuItem = sender as ToolStripMenuItem;
+            //ToolStripItem pItem = pTempBtn;
+            //if (null == pTempBtn)
+            //{
+            //    pItem = pTempMenuItem;
+            //}
+            //if (null == pItem)
+            //{
+            //    return;
+            //}
+            string strKey = pTemp.AccessibleName;
             //当前Command被按下时,CurrentTool设置为null
             //MapControl和PageLayoutControl的也设置为null
             _App.CurrentTool = null;
@@ -385,70 +436,78 @@ namespace MyMainGIS
             //此项必须设置为False
             //遍历所有的Command,设置每一个Command的选择状态为False
             ToolStripButton UICmd = null;
-            foreach (var item in pItem.GetCurrentParent().Items)
-            {
-                UICmd = item as ToolStripButton;
-                if (null == UICmd)
-                    continue;
-                UICmd.Checked = false;
-            }
+            //foreach (var item in pItem.GetCurrentParent().Items)
+            //{
+            //    UICmd = item as ToolStripButton;
+            //    if (null == UICmd)
+            //        continue;
+            //    UICmd.Checked = false;
+            //}
+            
+
             MyPluginEngine.ICommand cmd = _CommandCol[strKey];
             ////在状态栏显示插件信息
-            this.toolStripStatusLabel1.Text = cmd.Message;
-            if (null != pTempBtn)
+            this.statusButton1.Text = cmd.Message;
+            if (null != pTemp)
             {
-                pTempBtn.Checked = true;
+                pTemp.Checked = true;
             }
             //((ToolStripButton)sender).Checked = true;
             //设置Map控件的鼠标
-            axMapControl.MousePointer = esriControlsMousePointer.esriPointerDefault;
+            axMapControl1.MousePointer = esriControlsMousePointer.esriPointerDefault;
             cmd.OnClick();
             //((ToolStripButton)sender).Checked = false;
-            if (null != pTempBtn)
+            if (null != pTemp)
             {
-                pTempBtn.Checked = false;
+                pTemp.Checked = false;
             }
         }
         void UITool_Click(object sender, EventArgs e)
         {
             //获得当前点击的ITool对象
-            ToolStripButton pTempBtn = sender as ToolStripButton;
-            ToolStripMenuItem pTempMenuItem = sender as ToolStripMenuItem;
-            ToolStripItem pItem = pTempBtn;
-            if (null == pTempBtn)
-            {
-                pItem = pTempMenuItem;
-            }
-            if (null == pItem)
-            {
-                return;
-            }
-            string strKey = pItem.AccessibleName;
+            //ToolStripButton pTempBtn = sender as ToolStripButton;
+            //ToolStripMenuItem pTempMenuItem = sender as ToolStripMenuItem;
+            //ToolStripItem pItem = pTempBtn;
+
+            ButtonItem pTemp = sender as ButtonItem;
+            //if (null == pTempBtn)
+            //{
+            //    pItem = pTempMenuItem;
+            //}
+            //if (null == pItem)
+            //{
+            //    return;
+            //}
+            string strKey = pTemp.AccessibleName;
             MyPluginEngine.ITool tool = this._ToolCol[strKey];
             //第一次按下
             if (_App.CurrentTool == null && _mapControl.CurrentTool == null && _pageLayoutControl.CurrentTool == null)
             {
-                toolStripStatusLabel1.Text = tool.Message;
-                if (null != pTempBtn)
+                statusButton1.Text = tool.Message;
+                if (null != pTemp)
                 {
-                    pTempBtn.Checked = true;
+                    pTemp.Checked = true;
                 }
-                axMapControl.MousePointer = (ESRI.ArcGIS.Controls.esriControlsMousePointer)(tool.Cursor);
-                axPageLayoutControl.MousePointer = (ESRI.ArcGIS.Controls.esriControlsMousePointer)(tool.Cursor);
+                axMapControl1.MousePointer = (ESRI.ArcGIS.Controls.esriControlsMousePointer)(tool.Cursor);
+                axPageLayoutControl1.MousePointer = (ESRI.ArcGIS.Controls.esriControlsMousePointer)(tool.Cursor);
                 tool.OnClick();
                 _App.CurrentTool = tool.ToString();
+                if (null != pTemp)
+                {
+                    pTemp.Checked = false;
+                }
             }
             else
             {
                 if (_App.CurrentTool == strKey)
                 {
                     //如果是连续二次按下,则使这个Tool完成操作后处于关闭状态
-                    if (null != pTempBtn)
+                    if (null != pTemp)
                     {
-                        pTempBtn.Checked = false;
+                        pTemp.Checked = false;
                     }
-                    axMapControl.MousePointer = esriControlsMousePointer.esriPointerDefault;
-                    axPageLayoutControl.MousePointer = esriControlsMousePointer.esriPointerDefault;
+                    axMapControl1.MousePointer = esriControlsMousePointer.esriPointerDefault;
+                    axPageLayoutControl1.MousePointer = esriControlsMousePointer.esriPointerDefault;
                     _App.CurrentTool = null;
                     _App.MapControl.CurrentTool = null;
                     _App.PageLayoutControl.CurrentTool = null;
@@ -457,27 +516,27 @@ namespace MyMainGIS
                 {
                     ////按下一个Tool后没有关闭接着去按另一个Tool,则关闭前一个Tool
                     ////获得前一个Tool
-                    if (null != pTempBtn)
+                    if (null != pTemp)
                     {
-                        ToolStripItem pItem1 = GetCurBtn(pItem.GetCurrentParent(), _App.CurrentTool);
-                        if (null == pItem1)
-                            return;
-                        ToolStripButton lastTool = pItem1 as ToolStripButton;
-                        if (lastTool != null)
-                        {
-                            lastTool.Checked = false;
-                        }
+                        //ToolStripItem pItem1 = GetCurBtn(pItem.GetCurrentParent(), _App.CurrentTool);
+                        //if (null == pItem1)
+                        //    return;
+                        //ToolStripButton lastTool = pItem1 as ToolStripButton;
+                        //if (lastTool != null)
+                        //{
+                        //    lastTool.Checked = false;
+                        //}
                         _App.PageLayoutControl.CurrentTool = null;
                         _App.MapControl.CurrentTool = null;
                     }
                     //设置后一个Tool的状态
-                    toolStripStatusLabel1.Text = tool.Message;
-                    if (null != pTempBtn)
+                    statusButton1.Text = tool.Message;
+                    if (null != pTemp)
                     {
-                        pTempBtn.Checked = false;
+                        pTemp.Checked = false;
                     }
-                    axMapControl.MousePointer = (ESRI.ArcGIS.Controls.esriControlsMousePointer)(tool.Cursor);
-                    axPageLayoutControl.MousePointer = (ESRI.ArcGIS.Controls.esriControlsMousePointer)(tool.Cursor);
+                    axMapControl1.MousePointer = (ESRI.ArcGIS.Controls.esriControlsMousePointer)(tool.Cursor);
+                    axPageLayoutControl1.MousePointer = (ESRI.ArcGIS.Controls.esriControlsMousePointer)(tool.Cursor);
                     tool.OnClick();
                     _App.CurrentTool = tool.ToString();
                 }
@@ -521,7 +580,7 @@ namespace MyMainGIS
                     _Tool.OnContextMenu(e.x, e.y);
                 }
             }
-            toolStripStatusLabel2.Text = " 当前坐标X：" + e.mapX.ToString() + "  Y：" + e.mapY.ToString();
+            statusButton2.Text = " 当前坐标X：" + e.mapX.ToString() + "  Y：" + e.mapY.ToString();
         }
 
         private void axMapControl_OnMouseMove(object sender, IMapControlEvents2_OnMouseMoveEvent e)
@@ -531,8 +590,8 @@ namespace MyMainGIS
                 _Tool = _ToolCol[_App.CurrentTool];
                 _Tool.OnMouseMove(e.button, e.shift, (int)e.mapX, (int)e.mapY);
             }
-            toolStripStatusLabel2.Text = " 当前坐标X：" + e.mapX.ToString() + "  Y：" + e.mapY.ToString();
-            toolStripStatusLabel3.Text = "比例尺：" + ((long)(_mapControl.MapScale)).ToString();
+            statusButton2.Text = " 当前坐标X：" + e.mapX.ToString() + "  Y：" + e.mapY.ToString();
+            statusButton3.Text = "比例尺：" + ((long)(_mapControl.MapScale)).ToString();
         }
 
         private void axMapControl_OnMouseUp(object sender, IMapControlEvents2_OnMouseUpEvent e)
@@ -542,7 +601,7 @@ namespace MyMainGIS
                 _Tool = _ToolCol[_App.CurrentTool];
                 _Tool.OnMouseUp(e.button, e.shift, (int)e.mapX, (int)e.mapY);
             }
-            toolStripStatusLabel2.Text = " 当前坐标X：" + e.mapX.ToString() + "  Y：" + e.mapY.ToString();
+            statusButton2.Text = " 当前坐标X：" + e.mapX.ToString() + "  Y：" + e.mapY.ToString();
         }
 
         private void axMapControl_OnKeyDown(object sender, IMapControlEvents2_OnKeyDownEvent e)
@@ -695,7 +754,7 @@ namespace MyMainGIS
 
                 if (pFeatLyr == null)
                     return;
-                MapLayerInfo _mapLyrInfo = new MapLayerInfo(pFeatLyr, _mapControl.Map);
+                MyMainGIS.Library.MapLayerInfo _mapLyrInfo = new MyMainGIS.Library.MapLayerInfo(pFeatLyr, _mapControl.Map);
                 //propertyGrid.SelectedObject = _mapLyrInfo;
 
                 //_App.StatusBar.Panels[0].Text = "当前选择图层:" + layer.Name;
@@ -759,35 +818,35 @@ namespace MyMainGIS
                     //要素的定义
                     if (pFeat.Shape.GeometryType == esriGeometryType.esriGeometryPoint)
                     {
-                        this.axMapControl.CenterAt((IPoint)pFeat.Shape);
+                        this.axMapControl1.CenterAt((IPoint)pFeat.Shape);
                     }
                     else
                     {
                         IEnvelope pEnv = pFeat.Shape.Envelope;
                         pEnv.Expand(5, 5, true);
-                        axMapControl.ActiveView.Extent = pEnv;
+                        axMapControl1.ActiveView.Extent = pEnv;
                     }
-                    axMapControl.ActiveView.Refresh();
-                    axMapControl.ActiveView.ScreenDisplay.UpdateWindow();
+                    axMapControl1.ActiveView.Refresh();
+                    axMapControl1.ActiveView.ScreenDisplay.UpdateWindow();
                     //用于解决先定位后闪烁的问题
                     //自定义闪烁功能
                     switch (pFeat.Shape.GeometryType)
                     {
                         case esriGeometryType.esriGeometryPoint:
-                            FlashFeature.FlashPoint(axMapControl, axMapControl.ActiveView.ScreenDisplay, pFeat.Shape);
+                            FlashFeature.FlashPoint(axMapControl1, axMapControl1.ActiveView.ScreenDisplay, pFeat.Shape);
                             break;
                         case esriGeometryType.esriGeometryPolyline:
-                            FlashFeature.FlashLine(axMapControl, axMapControl.ActiveView.ScreenDisplay, pFeat.Shape);
+                            FlashFeature.FlashLine(axMapControl1, axMapControl1.ActiveView.ScreenDisplay, pFeat.Shape);
                             break;
                         case esriGeometryType.esriGeometryPolygon:
-                            FlashFeature.FlashPolygon(axMapControl, axMapControl.ActiveView.ScreenDisplay, pFeat.Shape);
+                            FlashFeature.FlashPolygon(axMapControl1, axMapControl1.ActiveView.ScreenDisplay, pFeat.Shape);
                             break;
                         default:
                             break;
                     }
 
-                    axMapControl.ActiveView.PartialRefresh(esriViewDrawPhase.esriViewGeoSelection, null, null);
-                    axMapControl.ActiveView.PartialRefresh(esriViewDrawPhase.esriViewGeography, null, null);
+                    axMapControl1.ActiveView.PartialRefresh(esriViewDrawPhase.esriViewGeoSelection, null, null);
+                    axMapControl1.ActiveView.PartialRefresh(esriViewDrawPhase.esriViewGeography, null, null);
                 }
             }
         }
@@ -816,5 +875,7 @@ namespace MyMainGIS
             }
             MessageBox.Show("Test");
         }
+
+
     }
 }

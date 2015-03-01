@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using System.Data;
 
 using ESRI.ArcGIS.Carto;
@@ -62,7 +61,7 @@ namespace MyPluginEngine
         /// <summary>
         /// 主程序窗体中的状态栏
         /// </summary>
-        StatusStrip StatusBar { get; set; }
+        DevComponents.DotNetBar.Metro.MetroStatusBar StatusBar { get; set; }
         /// <summary>
         /// 主程序UI界面的Visible属性
         /// </summary>

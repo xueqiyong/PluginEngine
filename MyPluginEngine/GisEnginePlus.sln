@@ -1,15 +1,17 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2013
-VisualStudioVersion = 12.0.21005.1
-MinimumVisualStudioVersion = 10.0.40219.1
+# Visual Studio 2012
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyPluginEngine", "MyPluginEngine\MyPluginEngine.csproj", "{40E8851D-BDE3-450E-AF6A-5D4CA40B0FB7}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyMainGIS", "MyMainGIS\MyMainGIS.csproj", "{966B9B5F-AB06-4070-A0C5-D6F974922F39}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyMainTools", "MyMainTools\MyMainTools.csproj", "{25EED1DC-C4B1-49A6-9445-4141B688812E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "dataPreMenuBar", "dataPreMenuBar\dataPreMenuBar.csproj", "{16E69B2B-3029-4452-AC53-4FBBF21CC174}"
+EndProject
 Global
 	GlobalSection(TeamFoundationVersionControl) = preSolution
-		SccNumberOfProjects = 3
+		SccNumberOfProjects = 5
 		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
 		SccTeamFoundationServer = https://lkgis.visualstudio.com/defaultcollection
 		SccLocalPath0 = .
@@ -19,6 +21,12 @@ Global
 		SccProjectUniqueName2 = MyMainGIS\\MyMainGIS.csproj
 		SccProjectName2 = MyMainGIS
 		SccLocalPath2 = MyMainGIS
+		SccProjectUniqueName3 = MyMainTools\\MyMainTools.csproj
+		SccProjectName3 = MyMainTools
+		SccLocalPath3 = MyMainTools
+		SccProjectUniqueName4 = dataPreMenuBar\\dataPreMenuBar.csproj
+		SccProjectName4 = dataPreMenuBar
+		SccLocalPath4 = dataPreMenuBar
 	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +41,14 @@ Global
 		{966B9B5F-AB06-4070-A0C5-D6F974922F39}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{966B9B5F-AB06-4070-A0C5-D6F974922F39}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{966B9B5F-AB06-4070-A0C5-D6F974922F39}.Release|Any CPU.Build.0 = Release|Any CPU
+		{25EED1DC-C4B1-49A6-9445-4141B688812E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{25EED1DC-C4B1-49A6-9445-4141B688812E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{25EED1DC-C4B1-49A6-9445-4141B688812E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{25EED1DC-C4B1-49A6-9445-4141B688812E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{16E69B2B-3029-4452-AC53-4FBBF21CC174}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{16E69B2B-3029-4452-AC53-4FBBF21CC174}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{16E69B2B-3029-4452-AC53-4FBBF21CC174}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{16E69B2B-3029-4452-AC53-4FBBF21CC174}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

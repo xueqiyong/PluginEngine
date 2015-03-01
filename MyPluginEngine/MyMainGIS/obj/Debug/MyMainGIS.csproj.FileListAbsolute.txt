@@ -1,4 +1,16 @@
-E:\开发\AE\lkgis2014\MyPluginEngine\MyMainGIS\obj\Debug\MyMainGIS.csprojResolveAssemblyReference.cache
-E:\开发\AE\lkgis2014\MyPluginEngine\MyMainGIS\obj\Debug\MyMainGIS.MainGIS.resources
-E:\开发\AE\lkgis2014\MyPluginEngine\MyMainGIS\obj\Debug\MyMainGIS.Properties.Resources.resources
-E:\开发\AE\lkgis2014\MyPluginEngine\MyMainGIS\obj\Debug\MyMainGIS.csproj.GenerateResource.Cache
+E:\编程\arcgis engine\MyPluginEngine\MyMainGIS\obj\Debug\MyMainGIS.csprojResolveAssemblyReference.cache
+E:\编程\arcgis engine\MyPluginEngine\MyMainGIS\obj\Debug\MyMainGIS.Properties.Resources.resources
+E:\编程\arcgis engine\MyPluginEngine\MyMainGIS\obj\Debug\MyMainGIS.csproj.GenerateResource.Cache
+E:\编程\arcgis engine\MyPluginEngine\MyMainGIS\bin\Debug\MyMainGIS.exe.config
+E:\编程\arcgis engine\MyPluginEngine\MyMainGIS\bin\Debug\MyMainGIS.exe
+E:\编程\arcgis engine\MyPluginEngine\MyMainGIS\bin\Debug\MyMainGIS.pdb
+E:\编程\arcgis engine\MyPluginEngine\MyMainGIS\bin\Debug\MyMainTools.dll
+E:\编程\arcgis engine\MyPluginEngine\MyMainGIS\bin\Debug\MyPluginEngine.dll
+E:\编程\arcgis engine\MyPluginEngine\MyMainGIS\bin\Debug\log4net.dll
+E:\编程\arcgis engine\MyPluginEngine\MyMainGIS\bin\Debug\MyMainTools.pdb
+E:\编程\arcgis engine\MyPluginEngine\MyMainGIS\bin\Debug\MyPluginEngine.pdb
+E:\编程\arcgis engine\MyPluginEngine\MyMainGIS\obj\Debug\MyMainGIS.MainGIS.resources
+E:\编程\arcgis engine\MyPluginEngine\MyMainGIS\obj\Debug\MyMainGIS.exe
+E:\编程\arcgis engine\MyPluginEngine\MyMainGIS\obj\Debug\MyMainGIS.pdb
+E:\编程\arcgis engine\MyPluginEngine\MyMainGIS\bin\Debug\dataPreMenuBar.dll
+E:\编程\arcgis engine\MyPluginEngine\MyMainGIS\bin\Debug\dataPreMenuBar.pdb

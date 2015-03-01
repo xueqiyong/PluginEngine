@@ -4,7 +4,6 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Text;
-using System.Threading.Tasks;
 
 /**
  * author lk 
@@ -89,11 +88,11 @@ namespace MyPluginEngine
                                 switch (theInterface.FullName)
                                 {
                                     //MyPluginEngine.
-                                    case "MyPluginEngine.PluginInterface.ICommand":
-                                    case "MyPluginEngine.PluginInterface.ITool":
-                                    case "MyPluginEngine.PluginInterface.IMenuDef":
-                                    case "MyPluginEngine.PluginInterface.IToolBarDef":
-                                    case "MyPluginEngine.PluginInterface.IDockableWindowDef":
+                                    case "MyPluginEngine.ICommand":
+                                    case "MyPluginEngine.ITool":
+                                    case "MyPluginEngine.IMenuDef":
+                                    case "MyPluginEngine.IToolBarDef":
+                                    case "MyPluginEngine.IDockableWindowDef":
                                         getPluginObject(_PluginCol, _type);
                                         break;
                                     default:

@@ -1,0 +1,10 @@
+E:\编程\arcgis engine\MyPluginEngine\dataPreMenuBar\bin\Debug\dataPreMenuBar.dll
+E:\编程\arcgis engine\MyPluginEngine\dataPreMenuBar\bin\Debug\dataPreMenuBar.pdb
+E:\编程\arcgis engine\MyPluginEngine\dataPreMenuBar\bin\Debug\MyPluginEngine.dll
+E:\编程\arcgis engine\MyPluginEngine\dataPreMenuBar\bin\Debug\log4net.dll
+E:\编程\arcgis engine\MyPluginEngine\dataPreMenuBar\bin\Debug\MyPluginEngine.pdb
+E:\编程\arcgis engine\MyPluginEngine\dataPreMenuBar\obj\Debug\dataPreMenuBar.csprojResolveAssemblyReference.cache
+E:\编程\arcgis engine\MyPluginEngine\dataPreMenuBar\obj\Debug\dataPreMenuBar.dll
+E:\编程\arcgis engine\MyPluginEngine\dataPreMenuBar\obj\Debug\dataPreMenuBar.pdb
+E:\编程\arcgis engine\MyPluginEngine\dataPreMenuBar\obj\Debug\dataPreMenuBar.SelectByAttrFrm.resources
+E:\编程\arcgis engine\MyPluginEngine\dataPreMenuBar\obj\Debug\dataPreMenuBar.csproj.GenerateResource.Cache

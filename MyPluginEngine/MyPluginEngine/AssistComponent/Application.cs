@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
 using System.Data;
 
@@ -35,7 +34,7 @@ namespace MyPluginEngine
         private IPageLayoutControlDefault _PageLayoutControl;
         private string _Name;
         private Form _MainPlatfrom;
-        private System.Windows.Forms.StatusStrip _StatusBar;
+        private DevComponents.DotNetBar.Metro.MetroStatusBar _StatusBar;
         private bool _Visible;
 
 
@@ -162,7 +161,7 @@ namespace MyPluginEngine
         /// <summary>
         /// 主程序窗体中的状态栏
         /// </summary>
-        public System.Windows.Forms.StatusStrip StatusBar
+        public DevComponents.DotNetBar.Metro.MetroStatusBar StatusBar
         {
             get
             {

@@ -1,6 +1,7 @@
-E:\开发\AE\lkgis2014\MyPluginEngine\MyPluginEngine\bin\Debug\MyPluginEngine.dll.config
-E:\开发\AE\lkgis2014\MyPluginEngine\MyPluginEngine\bin\Debug\MyPluginEngine.dll
-E:\开发\AE\lkgis2014\MyPluginEngine\MyPluginEngine\bin\Debug\MyPluginEngine.pdb
-E:\开发\AE\lkgis2014\MyPluginEngine\MyPluginEngine\obj\Debug\MyPluginEngine.csprojResolveAssemblyReference.cache
-E:\开发\AE\lkgis2014\MyPluginEngine\MyPluginEngine\obj\Debug\MyPluginEngine.dll
-E:\开发\AE\lkgis2014\MyPluginEngine\MyPluginEngine\obj\Debug\MyPluginEngine.pdb
+E:\编程\arcgis engine\MyPluginEngine\MyPluginEngine\bin\Debug\MyPluginEngine.dll.config
+E:\编程\arcgis engine\MyPluginEngine\MyPluginEngine\bin\Debug\MyPluginEngine.dll
+E:\编程\arcgis engine\MyPluginEngine\MyPluginEngine\bin\Debug\MyPluginEngine.pdb
+E:\编程\arcgis engine\MyPluginEngine\MyPluginEngine\bin\Debug\log4net.dll
+E:\编程\arcgis engine\MyPluginEngine\MyPluginEngine\obj\Debug\MyPluginEngine.dll
+E:\编程\arcgis engine\MyPluginEngine\MyPluginEngine\obj\Debug\MyPluginEngine.pdb
+E:\编程\arcgis engine\MyPluginEngine\MyPluginEngine\obj\Debug\MyPluginEngine.csprojResolveAssemblyReference.cache

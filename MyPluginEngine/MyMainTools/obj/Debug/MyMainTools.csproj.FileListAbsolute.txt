@@ -1,0 +1,8 @@
+E:\编程\arcgis engine\MyPluginEngine\MyMainTools\bin\Debug\MyMainTools.dll
+E:\编程\arcgis engine\MyPluginEngine\MyMainTools\bin\Debug\MyMainTools.pdb
+E:\编程\arcgis engine\MyPluginEngine\MyMainTools\obj\Debug\MyMainTools.dll
+E:\编程\arcgis engine\MyPluginEngine\MyMainTools\obj\Debug\MyMainTools.pdb
+E:\编程\arcgis engine\MyPluginEngine\MyMainTools\bin\Debug\MyPluginEngine.dll
+E:\编程\arcgis engine\MyPluginEngine\MyMainTools\bin\Debug\log4net.dll
+E:\编程\arcgis engine\MyPluginEngine\MyMainTools\bin\Debug\MyPluginEngine.pdb
+E:\编程\arcgis engine\MyPluginEngine\MyMainTools\obj\Debug\MyMainTools.csprojResolveAssemblyReference.cache
