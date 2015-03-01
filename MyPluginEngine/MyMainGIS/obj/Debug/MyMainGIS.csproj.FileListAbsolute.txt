@@ -1,0 +1,4 @@
+E:\开发\AE\lkgis2014\MyPluginEngine\MyMainGIS\obj\Debug\MyMainGIS.csprojResolveAssemblyReference.cache
+E:\开发\AE\lkgis2014\MyPluginEngine\MyMainGIS\obj\Debug\MyMainGIS.MainGIS.resources
+E:\开发\AE\lkgis2014\MyPluginEngine\MyMainGIS\obj\Debug\MyMainGIS.Properties.Resources.resources
+E:\开发\AE\lkgis2014\MyPluginEngine\MyMainGIS\obj\Debug\MyMainGIS.csproj.GenerateResource.Cache
